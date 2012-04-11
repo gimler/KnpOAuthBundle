@@ -39,8 +39,9 @@ class OAuthProvider implements OAuthProviderInterface
     protected $httpClient;
 
     /**
-     * @param Buzz\Client\ClientInterface $httpClient
-     * @param array                       $options
+     * @param Buzz\Client\ClientInterface               $httpClient
+     * @param Symfony\Component\Security\Http\HttpUtils $httpUtils
+     * @param array                                     $options
      */
     public function __construct(HttpClientInterface $httpClient, HttpUtils $httpUtils, array $options)
     {
@@ -79,6 +80,7 @@ class OAuthProvider implements OAuthProviderInterface
 
     /**
      * @param Symfony\Component\HttpFoundation\Request $request
+     *
      * @return string
      */
     public function getRedirectUri(Request $request)
@@ -89,9 +91,11 @@ class OAuthProvider implements OAuthProviderInterface
     /**
      * Retrieve an option by name
      *
-     * @throws InvalidArgumentException When the option does not exist
-     * @param string                    $name The option name
+     * @param string $name The option name
+     *
      * @return mixed                    The option value
+     *
+     * @throws InvalidArgumentException When the option does not exist
      */
     public function getOption($name)
     {
@@ -105,8 +109,9 @@ class OAuthProvider implements OAuthProviderInterface
     /**
      * Performs an HTTP request
      *
-     * @param string $url The url to fetch
+     * @param string $url    The url to fetch
      * @param string $method The HTTP method to use
+     *
      * @return string The response content
      */
     protected function httpRequest($url, $content = null, $method = null)
